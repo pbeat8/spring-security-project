@@ -1,4 +1,4 @@
-package com.patrycja.springsecurity.coupon.security;
+package com.patrycja.springsecurity.product.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -24,6 +24,7 @@ public class ProductRestController {
     @PostMapping
     public Product create(@RequestBody Product product){
         if(product.getCouponCode() != null && !product.getCouponCode().isEmpty()){
+            // todo
             Coupon coupon = restTemplate.getForObject(couponServiceUrl + product.getCouponCode(), Coupon.class);
             product.setPrice(product.getPrice().subtract(coupon.getDiscount()));
         }
