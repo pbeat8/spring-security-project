@@ -47,7 +47,7 @@ public class ProductController {
     @PostMapping("/getProduct")
     public ModelAndView getProduct(Long id){
         ModelAndView mav = new ModelAndView("productDetails");
-        mav.addObject(productRepository.findById(id));
+        mav.addObject(productRepository.findById(id).get());
         return mav;
     }
 

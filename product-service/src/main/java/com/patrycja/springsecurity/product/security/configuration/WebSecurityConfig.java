@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Configuration
+//@Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -31,10 +31,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers(HttpMethod.GET, "/showCreateProduct", "/createProduct", "/createResponse").hasRole("ADMIN")
                 .mvcMatchers(HttpMethod.POST, "/getProduct").hasAnyRole("USER", "ADMIN")
                 .mvcMatchers(HttpMethod.POST, "/api/products", "/saveProduct").hasRole("ADMIN")
-                .mvcMatchers("/", "/login").permitAll()
+                .mvcMatchers("/", "/login", "/showReg", "/registerUser").permitAll()
                 .anyRequest().denyAll()
                 .and().csrf().disable()
-                .logout().logoutSuccessUrl("/");;
+                .logout().logoutSuccessUrl("/");
     }
 
     @Bean
