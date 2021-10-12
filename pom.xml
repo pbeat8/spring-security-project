@@ -28,6 +28,7 @@
     <modules>
         <module>coupon-service</module>
         <module>product-service</module>
+        <module>auth-server</module>
     </modules>
 
     <dependencies>

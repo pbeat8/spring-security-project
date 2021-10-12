@@ -1,4 +1,4 @@
-package com.patrycja.springsecurity.coupon.security.config;
+package com.patrycja.springsecurity.product.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +9,6 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import javax.sql.DataSource;
@@ -19,7 +17,7 @@ import javax.sql.DataSource;
 @EnableAuthorizationServer
 public class AuthorisationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    private static final String RESOURCE_ID = "couponservice";
+    private static final String RESOURCE_ID="productservice";
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -35,14 +33,15 @@ public class AuthorisationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory().withClient("couponclientapp").secret(passwordEncoder.encode("9999"))
+        clients.inMemory().withClient("productclientapp").secret(passwordEncoder.encode("9999"))
                 .authorizedGrantTypes("password", "refresh_token")
                 .scopes("read", "write").resourceIds(RESOURCE_ID);
     }
 
+    //where to store token, what authManager and userDetailsServer to use
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenStore(new JdbcTokenStore(dataSource))    // or (new InMemoryTokenStore())
+        endpoints.tokenStore(new JdbcTokenStore(dataSource))
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService);
     }
